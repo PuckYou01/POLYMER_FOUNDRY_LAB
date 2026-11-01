@@ -587,6 +587,9 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
 <div class="modal" id="modal"></div>
 <div class="toast" id="toast"></div>
 <script>
+/* WP-06d: โหมดแบบทดสอบ HOTs ปิดไว้ระหว่างทดลองใช้เพื่อไม่ให้ข้อสอบรั่ว
+   ไฟล์ที่เปิดได้สร้างด้วย _plan/tests/make-test-copies.sh (สำเนาอยู่ที่ with-test/) — อย่าแก้ค่านี้ด้วยมือ */
+var TEST_MODE_ENABLED = false;
 
 /* ===== 10_data.js ===== */
 /* ============================================================
@@ -640,9 +643,9 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
   /* ---------- ใบสั่งผลิตของโมดูล 2 : ปฏิกรณ์ ---------- */
   var M2 = [
     { id:'m2-1', title:'ฟิล์มพลาสติกพื้นฐาน', client:'โรงงานบรรจุภัณฑ์',
-      brief:'ขอพอลิเมอร์ที่กระบวนการผลิต<b>ไม่ปล่อยโมเลกุลเล็กออกมาเลย</b> และสายโซ่ยึดกันด้วย<b>แรงลอนดอนเท่านั้น</b>',
+      brief:'ขอพอลิเมอร์ที่กระบวนการผลิต<b>ไม่ปล่อยโมเลกุลเล็กออกมาเลย</b> และสายโซ่ยึดกันด้วย<b>แรงแผ่กระจายลอนดอนเท่านั้น</b>',
       need:{ kind:'addition', byproduct:null, imf:1, bulkMax:0 },
-      hint:'แรงลอนดอนอย่างเดียว แปลว่ามอนอเมอร์ต้องไม่มีอะตอมที่มีค่าอิเล็กโทรเนกาติวิตีสูง',
+      hint:'แรงแผ่กระจายลอนดอนอย่างเดียว แปลว่ามอนอเมอร์ต้องไม่มีอะตอมที่มีค่าอิเล็กโทรเนกาติวิตีสูง',
       resin:{ id:'pe', name:'พอลิเอทิลีน' } },
 
     { id:'m2-2', title:'พลาสติกใสขึ้นรูปกล่อง', client:'ร้านขายเบเกอรี',
@@ -950,7 +953,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
   D.TRASH = [
     { name:'ขวดน้ำดื่มใส',            code:1, clue:'ใส เบา บีบแล้วมีเสียงกรอบ ก้นขวดมีจุดนูน' },
     { name:'ขวดน้ำอัดลม',            code:1, clue:'ต้องกันแก๊สคาร์บอนไดออกไซด์ซึมออกได้' },
-    { name:'เสื้อกีฬาโพลีเอสเตอร์',    code:1, clue:'เส้นใยสังเคราะห์จากพอลิเมอร์ชนิดเดียวกับขวดน้ำ' },
+    { name:'เสื้อกีฬาพอลิเอสเทอร์',    code:1, clue:'เส้นใยสังเคราะห์จากพอลิเมอร์ชนิดเดียวกับขวดน้ำ' },
     { name:'ขวดนม / แกลลอนน้ำ',      code:2, clue:'สีขุ่น ผนังหนา แข็ง ทนสารเคมี' },
     { name:'ขวดแชมพู',               code:2, clue:'ขุ่น แข็ง ทนสารซักฟอก' },
     { name:'ท่อน้ำสีฟ้า',             code:3, clue:'แข็ง ทนสารเคมี มีคลอรีนในโมเลกุล ห้ามเผา' },
@@ -998,7 +1001,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
       cards:[
         ['รีไซเคิลเชิงกลกับเชิงเคมี','รีไซเคิลเชิงกลคือบดแล้วหลอมขึ้นรูปใหม่ ได้พอลิเมอร์เดิมที่คุณภาพลดลงทุกรอบเพราะสายโซ่สั้นลง ส่วนรีไซเคิลเชิงเคมีคือไฮโดรไลซ์กลับเป็นมอนอเมอร์แล้วสังเคราะห์ใหม่ ได้คุณภาพเท่าของใหม่'],
         ['ทำไมต้องคัดแยกก่อน','พลาสติกต่างชนิดมีจุดหลอมเหลวและความเข้ากันได้ต่างกัน หลอมรวมกันแล้วจะแยกเฟสและเปราะ สัญลักษณ์รีไซเคิลจึงไม่ได้แปลว่าทิ้งรวมกันได้'],
-        ['ขวดกลายเป็นเสื้อ','ขวด PET บดแล้วหลอมดึงเป็นเส้นใยโพลีเอสเตอร์ได้ เพราะเป็นพอลิเมอร์ชนิดเดียวกัน ข้อนี้แย้งความเข้าใจที่ว่าพลาสติกทำเป็นเส้นใยไม่ได้'],
+        ['ขวดกลายเป็นเสื้อ','ขวด PET บดแล้วหลอมดึงเป็นเส้นใยพอลิเอสเทอร์ได้ เพราะเป็นพอลิเมอร์ชนิดเดียวกัน ข้อนี้แย้งความเข้าใจที่ว่าพลาสติกทำเป็นเส้นใยไม่ได้'],
         ['ทำไมเทอร์มอเซตจึงรีไซเคิลยาก','โครงสร้างแบบร่างแหมีพันธะโคเวเลนต์เชื่อมระหว่างสายโซ่ ให้ความร้อนก็ไม่หลอม ทำได้เพียงบดเป็นผงไปผสมเป็นวัสดุอื่น']
       ] },
     { id:'rub', title:'ยางและอิลาสโตเมอร์', sub:'rubber & elastomers',
@@ -1010,9 +1013,9 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
       ] },
     { id:'fash', title:'แฟชั่นด่วนกับเส้นใยสังเคราะห์', sub:'fast fashion',
       cards:[
-        ['เสื้อผ้าส่วนใหญ่คือพลาสติก','เส้นใยสังเคราะห์อย่างโพลีเอสเตอร์ ไนลอน และอะคริลิก ล้วนเป็นพอลิเมอร์ชนิดเดียวกับที่ใช้ทำขวดและแห เมื่อทิ้งจึงเจอปัญหาเดียวกับขยะพลาสติก'],
+        ['เสื้อผ้าส่วนใหญ่คือพลาสติก','เส้นใยสังเคราะห์อย่างพอลิเอสเทอร์ ไนลอน และอะคริลิก ล้วนเป็นพอลิเมอร์ชนิดเดียวกับที่ใช้ทำขวดและแห เมื่อทิ้งจึงเจอปัญหาเดียวกับขยะพลาสติก'],
         ['ไมโครไฟเบอร์จากเครื่องซักผ้า','การซักเสื้อผ้าใยสังเคราะห์ปล่อยเส้นใยขนาดเล็กมากลงน้ำทุกครั้ง ซึ่งเล็กเกินกว่าระบบบำบัดน้ำเสียทั่วไปจะกรองได้'],
-        ['ทำไมผ้าผสมจึงรีไซเคิลยาก','ผ้าฝ้ายผสมโพลีเอสเตอร์มีทั้งพันธะไกลโคไซด์และพันธะเอสเทอร์อยู่ในผืนเดียวกัน วิธีแยกสลายที่ใช้ได้กับอย่างหนึ่งใช้กับอีกอย่างไม่ได้ จึงต้องแยกเส้นใยก่อน'],
+        ['ทำไมผ้าผสมจึงรีไซเคิลยาก','ผ้าฝ้ายผสมพอลิเอสเทอร์มีทั้งพันธะไกลโคไซด์และพันธะเอสเทอร์อยู่ในผืนเดียวกัน วิธีแยกสลายที่ใช้ได้กับอย่างหนึ่งใช้กับอีกอย่างไม่ได้ จึงต้องแยกเส้นใยก่อน'],
         ['ทางเลือกที่ทำได้จริง','ลดจำนวนชิ้นที่ซื้อ ใช้ซ้ำ ส่งต่อ และเลือกเส้นใยชนิดเดียวไม่ผสม จะทำให้กระบวนการรีไซเคิลปลายทางทำงานได้จริง']
       ] }
   ];
@@ -1055,7 +1058,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
       ['พลาสติกย่อยสลายได้ ทิ้งลงดินหรือลงทะเลก็ย่อยได้เอง','พอลิเมอร์อย่าง PLA ต้องอยู่ในโรงหมักที่ควบคุมอุณหภูมิและความชื้น จึงจะย่อยได้ในเวลาที่สมเหตุสมผล'],
       ['พลาสติกที่มีสัญลักษณ์รีไซเคิลทุกชนิดรีไซเคิลร่วมกันได้','ต้องคัดแยกก่อน เพราะพลาสติกต่างชนิดหลอมรวมกันแล้วแยกเฟสและเปราะ']
     ],
-    cliff:'ถ้าเสื้อผ้าที่เราใส่ทุกวันส่วนใหญ่ก็เป็นพอลิเมอร์ชนิดเดียวกับขวดน้ำ แล้วผ้าฝ้ายผสมโพลีเอสเตอร์หนึ่งตัวควรถูกจัดการอย่างไร?'
+    cliff:'ถ้าเสื้อผ้าที่เราใส่ทุกวันส่วนใหญ่ก็เป็นพอลิเมอร์ชนิดเดียวกับขวดน้ำ แล้วผ้าฝ้ายผสมพอลิเอสเทอร์หนึ่งตัวควรถูกจัดการอย่างไร?'
   };
 
 })(typeof window !== 'undefined' ? window : globalThis);
@@ -1156,8 +1159,8 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
     { id:'q27', level:'Ev', topic:'13.5', q:'เมืองหนึ่งจะลดขยะพอลิเมอร์ ควรจัดลำดับความสำคัญอย่างไรจึงเหมาะสมที่สุด',
       c:['เผาให้หมดก่อน แล้วค่อยคิดเรื่องอื่น','ลดการใช้เป็นอันดับแรก แล้วจึงใช้ซ้ำ รีไซเคิล และเลือกพอลิเมอร์ย่อยสลายได้ตามความเหมาะสม','ใช้พลาสติกย่อยสลายได้ทั้งหมดเพียงอย่างเดียว','ฝังกลบทั้งหมดเพราะประหยัดที่สุด'], a:1,
       why:'การลดการใช้ตัดปัญหาที่ต้นทาง ส่วนวิธีอื่นเป็นการจัดการปลายทางที่มีข้อจำกัดของตัวเอง' },
-    { id:'q28', level:'An', topic:'13.5', q:'เสื้อผ้าฝ้ายผสมโพลีเอสเตอร์รีไซเคิลยาก เพราะเหตุใด',
-      c:['สีย้อมทำให้แยกไม่ได้','มีทั้งพันธะไกลโคไซด์และพันธะเอสเทอร์ในผืนเดียวกัน วิธีแยกสลายที่ใช้กับอย่างหนึ่งใช้กับอีกอย่างไม่ได้','ผ้าฝ้ายไม่ใช่พอลิเมอร์','โพลีเอสเตอร์ไม่มีพันธะที่ไฮโดรไลซ์ได้'], a:1,
+    { id:'q28', level:'An', topic:'13.5', q:'เสื้อผ้าฝ้ายผสมพอลิเอสเทอร์รีไซเคิลยาก เพราะเหตุใด',
+      c:['สีย้อมทำให้แยกไม่ได้','มีทั้งพันธะไกลโคไซด์และพันธะเอสเทอร์ในผืนเดียวกัน วิธีแยกสลายที่ใช้กับอย่างหนึ่งใช้กับอีกอย่างไม่ได้','ผ้าฝ้ายไม่ใช่พอลิเมอร์','พอลิเอสเทอร์ไม่มีพันธะที่ไฮโดรไลซ์ได้'], a:1,
       why:'องค์ประกอบสองชนิดต้องใช้กระบวนการต่างกัน จึงต้องแยกเส้นใยก่อน' },
     { id:'q29', level:'An', topic:'13.4', q:'สารเติมแต่งชนิดหนึ่งเข้าไปทำปฏิกิริยาเคมีกับพอลิเมอร์ ไม่ได้เพียงผสมอยู่ในเนื้อ ตัวอย่างที่ตรงที่สุดคือข้อใด',
       c:['พลาสติไซเซอร์','กำมะถันในวัลคาไนเซชัน','ผงสี','ผงเขม่าดำ'], a:1,
@@ -1625,7 +1628,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
 (function (root) {
   'use strict';
 
-  var VERSION = 'v1.4.0';
+  var VERSION = 'v1.5.1';
   var K = { profile: 'pfl.profile', prog: 'pfl.progress', queue: 'pfl.queue', ep: 'pfl.endpoint' };
 
   function ls(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
@@ -1636,7 +1639,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
     VERSION: VERSION,
     sessionId: uid(),
     profile: ls(K.profile, null),          // {name, room, no}
-    endpoint: ls(K.ep, 'https://script.google.com/macros/s/AKfycbznUBnUFFg_TCo2vk4JpO3Gdlc-ONPnv5uNNzcxyOtXeiObKXxzAoUEHL7XVWclVEZ2/exec'),                // URL ของ Apps Script /exec
+    endpoint: ls(K.ep, ''),                // URL ของ Apps Script /exec
     progress: ls(K.prog, {}),
     queue: ls(K.queue, []),
     onSync: null
@@ -1854,10 +1857,11 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
         '<span class="ic">✦</span><span class="tt"><b>เกร็ดความรู้พอลิเมอร์</b>' +
         '<i>ชีวภาพ · รอบตัว · การแพทย์ · อัปไซเคิล · ยาง · แฟชั่นด่วน</i>' +
         '<u>อ่านแล้ว ' + factRead + '/' + factTotal + ' เรื่อง</u></span></button>' +
+      (TEST_MODE_ENABLED ?
       '<button class="tile tg" data-go="quiz">' +
         '<span class="ic">?</span><span class="tt"><b>แบบทดสอบ HOTs</b>' +
         '<i>สุ่ม 10 ข้อปรนัย และ 2 ข้อเขียนเลือกประเด็น</i>' +
-        '<u>' + (lastQ ? 'ครั้งล่าสุดได้ ' + lastQ.mc + '/10' : 'ยังไม่เคยทำ') + '</u></span></button>' +
+        '<u>' + (lastQ ? 'ครั้งล่าสุดได้ ' + lastQ.mc + '/10' : 'ยังไม่เคยทำ') + '</u></span></button>' : '') +
       '<button class="tile th' + (codexN ? ' done' : '') + '" data-go="codex">' +
         '<span class="ic">✎</span><span class="tt"><b>บันทึกวิศวกร</b>' +
         '<i>สรุปความรู้แยกจากการเล่น บันทึกเป็นภาพได้</i>' +
@@ -1875,7 +1879,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
         var g = b.dataset.go;
         if (g === 'm6') root.PFLM6.open();
         else if (g === 'facts') root.PFLFacts.open();
-        else if (g === 'quiz') root.PFLQuiz.open();
+        else if (g === 'quiz') { if (TEST_MODE_ENABLED) root.PFLQuiz.open(); }
         else { root.PFLCodex.render(); show('v-codex'); }
       };
     });
@@ -2503,7 +2507,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
     'fash2': '<g stroke="' + C.pend + '" stroke-width="2.4" fill="none"><path d="M14 18q10 10 20 0t20 0"/><path d="M14 30q10 10 20 0t20 0"/></g>' +
              '<g stroke="' + C.teal + '" stroke-width="2.4" fill="none"><path d="M14 42q10 -10 20 0t20 0"/></g>' +
              '<text x="70" y="24" text-anchor="middle" font-size="10" fill="' + C.pend + '">ฝ้าย</text>' +
-             '<text x="70" y="42" text-anchor="middle" font-size="10" fill="' + C.teal + '">โพลีเอสเตอร์</text>',
+             '<text x="70" y="42" text-anchor="middle" font-size="10" fill="' + C.teal + '">พอลิเอสเทอร์</text>',
     'fash3': '<path d="M30 14a6 6 0 1 1 6 6v4" fill="none" stroke="' + C.green + '" stroke-width="2.4"/>' +
              '<path d="M12 40l24-16 24 16z" fill="none" stroke="' + C.green + '" stroke-width="2.4"/>' +
              '<path d="M66 22a10 10 0 1 0 4 8" fill="none" stroke="' + C.teal + '" stroke-width="2.4"/>' +
@@ -2798,7 +2802,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
       '<div class="card" style="margin-top:12px"><h2>เรซินตั้งต้น</h2>' +
       '<div class="chips" id="m3-resins">' + res.map(function (r) {
         return '<button class="chip" data-r="' + r.id + '"><b>' + esc(r.name) + '</b><i>' +
-               (r.imf === 3 ? 'พันธะไฮโดรเจน' : r.imf === 2 ? 'แรงระหว่างขั้ว' : 'แรงลอนดอน') +
+               (r.imf === 3 ? 'พันธะไฮโดรเจน' : r.imf === 2 ? 'แรงระหว่างขั้ว' : 'แรงแผ่กระจายลอนดอน') +
                ' · หมู่ข้างเคียง ' + ['ไม่มี', 'เล็ก', 'ปานกลาง', 'ใหญ่'][r.bulk] + '</i></button>';
       }).join('') + '</div>' +
       '<p class="tiny" style="margin:9px 0 0">ผ่านใบสั่งในโมดูลปฏิกรณ์เพื่อปลดล็อกเรซินเพิ่ม</p></div>' +
@@ -3026,7 +3030,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
       '<div class="card" style="margin-top:12px"><h2>เรซินตั้งต้น</h2><div class="chips" id="m4-res">' +
       resins().map(function (r) {
         return '<button class="chip" data-r="' + r.id + '"><b>' + esc(r.name) + '</b><i>' +
-          (r.imf === 3 ? 'พันธะไฮโดรเจน' : r.imf === 2 ? 'แรงระหว่างขั้ว' : 'แรงลอนดอน') +
+          (r.imf === 3 ? 'พันธะไฮโดรเจน' : r.imf === 2 ? 'แรงระหว่างขั้ว' : 'แรงแผ่กระจายลอนดอน') +
           (r.conj ? ' · พันธะคู่สลับเดี่ยว' : '') + '</i></button>'; }).join('') + '</div></div>' +
 
       '<div class="card"><h2>สถานีปรับแต่ง</h2>' +
@@ -3694,7 +3698,18 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
     return a;
   }
 
-  function open() { intro(); U.show('v-quiz'); }
+  /* สลับลำดับตัวเลือกปรนัยทุกครั้งที่เริ่มทำ เฉลย (q.a) ตามไปด้วย · ไม่แก้ข้อมูลต้นฉบับใน D.QUIZ
+     (ก่อน v1.4.1 ตัวเลือกคงที่ เฉลยกระจุกที่ ข 37/40 ข้อ เดาได้) */
+  function shuffleChoices(q) {
+    var order = shuffle(q.c.map(function (_, i) { return i; }));
+    var copy = {};
+    for (var k in q) copy[k] = q[k];
+    copy.c = order.map(function (i) { return q.c[i]; });
+    copy.a = order.indexOf(q.a);
+    return copy;
+  }
+
+  function open() { if (!TEST_MODE_ENABLED) return; intro(); U.show('v-quiz'); }
 
   /* ระบบเส้นทางหน้าจอเรียกใช้เพื่อถามก่อนออก */
   function hasUnsaved() { return !!(st && !st.submitted); }
@@ -3719,7 +3734,7 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
   }
 
   function start() {
-    st = { mc: shuffle(D.QUIZ).slice(0, N_MC), open: shuffle(D.QUIZ_OPEN).slice(0, N_OPEN),
+    st = { mc: shuffle(D.QUIZ).slice(0, N_MC).map(shuffleChoices), open: shuffle(D.QUIZ_OPEN).slice(0, N_OPEN),
            i:0, ans:{}, openAns:{}, submitted:false, t0:Date.now() };
     st.items = st.mc.map(function (q) { return { t:'mc', q:q }; })
               .concat(st.open.map(function (q) { return { t:'open', q:q }; }));
@@ -3891,7 +3906,8 @@ figure.photo figcaption{font-size:11.5px;color:var(--dim);margin-top:5px;line-he
     document.querySelector('#v-quiz .scroll').scrollTop = 0;
   }
 
-  root.PFLQuiz = { open: open, hasUnsaved: hasUnsaved, discard: discard };
+  /* _shuffleChoices เปิดไว้ให้สคริปต์ทดสอบ (_plan/tests/wp06c-test.js) เรียกตรวจการสลับตัวเลือก */
+  root.PFLQuiz = { open: open, hasUnsaved: hasUnsaved, discard: discard, _shuffleChoices: shuffleChoices };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 /* ===== 84_facts.js ===== */
